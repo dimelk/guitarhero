@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="2000" height="1000"></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var centerX = 100;
+      var centerY = 700;
+      var radius = 30;
+
+      context.beginPath();
+      context.rect(0, 0, 2000, 1000);
+      context.fillStyle = '#ffffff';
+      context.fill();
+      context.lineWidth = 5;
+      context.strokeStyle = 'black';
+      context.stroke();
+      
+      var color = new Array(5);
+      color[0] = '#00ff00';
+      color[1] = '#ff0000';
+      color[2] = '#fff200';
+      color[3] = '#0000ff';
+      color[4] = 'orange';
+      context.scale(2.5, 1);
+      
+      
+      var EllipsePosition_x = 210;
+      var EllipsePosition_y = 100;
+        
+        for (i = 0; i <= 4; i++) {
+          centerX = 100 + 70*i;
+          context.beginPath();
+          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+          context.fillStyle = '#ffffff';
+          context.fill();
+          context.lineWidth = 2;
+          context.strokeStyle = color[i];
+          context.stroke();
+        }
+
+        for (i = 0; i <= 4; i++) {
+          context.moveTo(100 + i*70, 670);
+          context.lineTo(210 + i*15, 100);
+          context.stroke();
+          
+        }
+
+        addEventListener("keydown", function(event) {
+          ellipseNumber = -1;
+          if (event.code == "KeyA") {
+            ellipseNumber = 0;
+          }
+          if (event.code == "KeyS") {
+            ellipseNumber = 1;
+          }
+          if (event.code == "KeyJ") {
+            ellipseNumber = 2;
+          }
+          if (event.code == "KeyK") {
+            ellipseNumber = 3;
+          }
+          if (event.code == "KeyL") {
+            ellipseNumber = 4;
+          }
+          if (ellipseNumber >= 0) {
+            centerX = 100 + 70*ellipseNumber;
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.fillStyle = color[ellipseNumber];
+            context.fill();
+            context.lineWidth = 2;
+            context.strokeStyle = color[ellipseNumber];
+            context.stroke();
+          }
+      });
+      
+      addEventListener("keyup", function(event){
+          ellipseNumber = -1;
+          if (event.code == "KeyA") {
+            ellipseNumber = 0;
+          }
+          if (event.code == "KeyS") {
+            ellipseNumber = 1;
+          }
+          if (event.code == "KeyJ") {
+            ellipseNumber = 2;
+          }
+          if (event.code == "KeyK") {
+            ellipseNumber = 3;
+          }
+          if (event.code == "KeyL") {
+            ellipseNumber = 4;
+          }
+          if (ellipseNumber >= 0) {
+            centerX = 100 + 70*ellipseNumber;
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.fillStyle = '#ffffff';
+            context.fill();
+            context.lineWidth = 2;
+            context.strokeStyle = color[ellipseNumber];
+            context.stroke();
+        }
+      });
+      
+    </script>
+  </body>
+</html> 
