@@ -35,6 +35,17 @@
       context.scale(2.5, 1);
       
       
+      function drawEllipse(ellipseNumber, lineColor, fillColor) {
+        centerX = 100 + 70*ellipseNumber;
+        context.beginPath();
+        context.arc(centerX, centerY, 25, 0, 2 * Math.PI, false);
+        context.fillStyle = fillColor;
+        context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = lineColor;
+        context.stroke();
+      }
+
       var EllipsePosition_x = 210;
       var EllipsePosition_y = 100;
         
@@ -53,9 +64,8 @@
           context.moveTo(100 + i*70, 670);
           context.lineTo(210 + i*15, 100);
           context.stroke();
-          
         }
-
+     
         addEventListener("keydown", function(event) {
           ellipseNumber = -1;
           if (event.code == "KeyA") {
@@ -113,7 +123,29 @@
             context.stroke();
         }
       });
-      
+
+      function clearEllipseTimer(ellipseNumber, delay) {
+        setTimeout(function () {
+           drawEllipse(ellipseNumber, '#ffffff', '#ffffff')
+        }, delay);
+      }
+
+      var count = 0;
+      setTimeout(function draw() {
+          var ellipseNumber = Math.floor(Math.random() * 5);
+          drawEllipse(ellipseNumber, '#ffffff', '#000000');
+          var hideDelay = 100;
+          var showDelay = 200;
+          if (count < 400) {
+            hideDelay = 500 - count;
+          }
+          if (count < 800) {
+            showDelay = 1000 - count;
+          }
+          clearEllipseTimer(ellipseNumber, hideDelay);
+          setTimeout(draw, showDelay);
+          ++count;
+      }, 1000);
     </script>
   </body>
 </html> 
