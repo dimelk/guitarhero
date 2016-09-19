@@ -14,8 +14,8 @@
     <script>
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
+      var centerY = 500;
       var centerX = 100;
-      var centerY = 700;
       var radius = 30;
 
       context.beginPath();
@@ -35,10 +35,21 @@
       context.scale(2.5, 1);
       
       
-      function drawEllipse(ellipseNumber, lineColor, fillColor) {
+      function drawEllipse(ellipseNumber, lineColor, fillColor, radius) {
+        centerY = 700;
         centerX = 100 + 70*ellipseNumber;
         context.beginPath();
-        context.arc(centerX, centerY, 25, 0, 2 * Math.PI, false);
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        context.fillStyle = fillColor;
+        context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = lineColor;
+        context.stroke();
+      }
+
+      function drawCircle(centerX, centerY, lineColor, fillColor, radius) {
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
         context.fillStyle = fillColor;
         context.fill();
         context.lineWidth = 2;
@@ -50,22 +61,9 @@
       var EllipsePosition_y = 100;
         
         for (i = 0; i <= 4; i++) {
-          centerX = 100 + 70*i;
-          context.beginPath();
-          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-          context.fillStyle = '#ffffff';
-          context.fill();
-          context.lineWidth = 2;
-          context.strokeStyle = color[i];
-          context.stroke();
+          drawEllipse(i, color[i], '#ffffff', 30);
         }
-
-        for (i = 0; i <= 4; i++) {
-          context.moveTo(100 + i*70, 670);
-          context.lineTo(210 + i*15, 100);
-          context.stroke();
-        }
-     
+        
         addEventListener("keydown", function(event) {
           ellipseNumber = -1;
           if (event.code == "KeyA") {
@@ -84,14 +82,7 @@
             ellipseNumber = 4;
           }
           if (ellipseNumber >= 0) {
-            centerX = 100 + 70*ellipseNumber;
-            context.beginPath();
-            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-            context.fillStyle = color[ellipseNumber];
-            context.fill();
-            context.lineWidth = 2;
-            context.strokeStyle = color[ellipseNumber];
-            context.stroke();
+            drawEllipse(ellipseNumber, color[ellipseNumber], color[ellipseNumber], 30);
           }
       });
       
@@ -113,27 +104,26 @@
             ellipseNumber = 4;
           }
           if (ellipseNumber >= 0) {
-            centerX = 100 + 70*ellipseNumber;
-            context.beginPath();
-            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-            context.fillStyle = '#ffffff';
-            context.fill();
-            context.lineWidth = 2;
-            context.strokeStyle = color[ellipseNumber];
-            context.stroke();
+            drawEllipse(ellipseNumber, color[ellipseNumber], '#ffffff', 30);
         }
       });
 
       function clearEllipseTimer(ellipseNumber, delay) {
         setTimeout(function () {
-           drawEllipse(ellipseNumber, '#ffffff', '#ffffff')
+           drawEllipse(ellipseNumber, '#ffffff', '#ffffff', 25)
+        }, delay);
+      }
+
+      function clearCircleTimer(centerX, centerY, delay) {
+        setTimeout(function () {
+           drawCircle(centerX, centerY, '#ffffff', '#ffffff', 31)
         }, delay);
       }
 
       var count = 0;
       setTimeout(function draw() {
           var ellipseNumber = Math.floor(Math.random() * 5);
-          drawEllipse(ellipseNumber, '#ffffff', '#000000');
+          drawEllipse(ellipseNumber, '#ffffff', '#000000', 25);
           var hideDelay = 100;
           var showDelay = 200;
           if (count < 400) {
@@ -146,6 +136,16 @@
           setTimeout(draw, showDelay);
           ++count;
       }, 1000);
+
+      var x = 100;
+      setTimeout (function move() {
+        drawCircle(x, 500, '#000000', '#000000', 30);
+        clearCircleTimer(x, 500, 100)
+        setTimeout(move, 100);
+         ++x;
+      }, 100);
+      
+      
     </script>
   </body>
 </html> 
