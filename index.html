@@ -33,7 +33,13 @@
       color[3] = '#0000ff';
       color[4] = 'orange';
       context.scale(2.5, 1);
-      
+
+      var coordinates = new Array(5);
+      coordinates[0] = 100;
+      coordinates[1] = 170;
+      coordinates[2] = 240;
+      coordinates[3] = 310;
+      coordinates[4] = 380;
       
       function drawEllipse(ellipseNumber, lineColor, fillColor, radius) {
         centerY = 700;
@@ -137,15 +143,20 @@
           ++count;
       }, 1000);
 
-      var x = 100;
+      var y = 100;
+      var circleNumber = Math.floor(Math.random() * 5);
       setTimeout (function move() {
-        drawCircle(x, 500, '#000000', '#000000', 30);
-        clearCircleTimer(x, 500, 100)
-        setTimeout(move, 100);
-         ++x;
+        drawCircle(coordinates[circleNumber], y, '#000000', '#000000', 30);
+        clearCircleTimer(coordinates[circleNumber], y, 100);
+        if (y < 640) {
+          setTimeout(move, 100);
+          y = y + 10;
+        } else {
+          y = 100;
+          circleNumber = Math.floor(Math.random() * 5);
+          move();
+        }
       }, 100);
-      
-      
     </script>
   </body>
 </html> 
